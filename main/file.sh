@@ -8,6 +8,27 @@ else
     echo "You are not a root user"
 fi
 
+#Add user to linux including password
+
+if [[ $UID = "0"]] then
+read -p "Enter the username:" username
+read -s -p "Enter the password:" passwd
+egrep "^$username" /etc/passwd > /dev/null
+
+if [ $? -eq 0 ]; then
+echo "$username exists!"
+exit 1
+else 
+    pass=$(perl -e 'print crypt($ARGV[0], "password")' $password)
+    useradd -m -p "$pass" "$username"
+    [ $? -eq 0 ] && echo "User has been added" || echo "Failed to add a user"
+    fi
+
+else 
+    echo "You are not a root user"
+    exit 2
+fi
+
 #Check weather website is up or down
 for site in www.google.com
 do 

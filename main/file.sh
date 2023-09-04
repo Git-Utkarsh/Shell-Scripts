@@ -1,4 +1,16 @@
 #!/bin/bash
+
+# List partitions 
+
+echo "List partitions under the disk"
+for i in /dev/sda*; do
+echo "$i"
+done
+
+for i in {1..5}; do echo "Number: $i"; done
+for ((i=1; i<=5; i++)); do echo "Number: $i"; done
+
+
 #Check the user is root or not
 
 if [[ $UID = "0"]]
